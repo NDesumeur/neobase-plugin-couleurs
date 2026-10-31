@@ -1,0 +1,19 @@
+{
+  "id": "neobase.couleurs",
+  "name": "Couleurs",
+  "version": "1.0.0",
+  "author": "NDesumeur",
+  "description": "Une pipette partout sur l'écran, formats, harmonies, contraste et palettes.",
+  "icon": "icon.png",
+  "entry": "index.js",
+  "view": "couleurs",
+  "neobase": ">=4.0.0",
+  "type": "app",
+  "category": "Outils",
+  "mobile": false,
+  "system": false,
+  "dependencies": {},
+  "permissions": [
+    "full"
+  ]
+}
