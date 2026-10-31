@@ -2,12 +2,52 @@
 // Ses données sont dans le dossier du plugin, que NeoBase sauvegarde (synchro cloud et sauvegardes) ; à la première ouverture elle reprend ce que tu avais dans NeoBase.
 // Elle demande l'accès complet pour utiliser les outils d'interface de NeoBase. NeoBase ne l'ouvre que si elle est signée.
 const HTML = "";
+/*CSS-MOVED*/ const CSS = `.ofDropM .tbtn{justify-content:flex-start;font:14px var(--text);letter-spacing:0}
+.ofTb{all:unset;cursor:var(--cp,pointer);min-width:30px;height:30px;padding:0 7px;display:grid;place-items:center;color:var(--lilac);font-size:15px;background:var(--btn)}
+.ofTb:hover{background:var(--btnh);color:#fff}
+.ofTb.on{background:rgba(var(--mgr),.4);color:#fff}
+.ofTb.b{font-weight:bold}
+.ofTb.i{font-style:italic}
+.ofTb.u{text-decoration:underline}
+.ofTb.s{text-decoration:line-through}
+.ofDrop{position:relative}
+.ofDrop .ofTb{font-size:14px}
+.ofDropM{position:absolute;top:34px;left:0;z-index:20;--fill:var(--win);--c:var(--line2);display:none;flex-direction:column;min-width:210px;padding:6px;filter:drop-shadow(0 4px 0 var(--out))}
+.ofDrop.on .ofDropM{display:flex}
+.ofDropM .tbtn{padding:8px 10px}
+.ofDropM .tbtn:hover{background:rgba(var(--mgr),.16);color:#fff}
+.coBody{display:flex;gap:18px;align-items:flex-start}
+.coCol{flex:1;display:flex;flex-direction:column;gap:18px;min-width:0}
+.coPick{display:flex;gap:10px;align-items:stretch}
+.coBig{flex:1;height:130px;display:grid;place-items:center;font:20px var(--title);box-shadow:inset 0 0 0 3px rgba(0,0,0,.2)}
+.coNative{width:56px;height:auto;min-height:40px;border:0;padding:0;background:none;cursor:var(--cp,pointer)}
+.coFmt{display:flex;gap:8px;align-items:center}
+.coFmt .label{width:54px}
+.coFmt input{flex:1;padding:6px 10px;font:14px Consolas,monospace}
+.coFmt .btn{padding:6px 10px;font-size:9px}
+.coRow{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.coRow>.hint{width:170px}
+.coSw{all:unset;cursor:var(--cp,pointer);width:34px;height:34px;box-shadow:inset 0 0 0 2px rgba(0,0,0,.25),0 3px 0 rgba(0,0,0,.35)}
+.coSw:hover{transform:translateY(-2px)}
+.coPrev{padding:16px;font-size:16px}
+.coPrev b{display:block;font-size:20px;margin-bottom:4px}
+.coBadge{padding:3px 8px;font-size:12px;background:rgba(255,79,109,.25);color:#fff}
+.coBadge.ok{background:rgba(63,191,106,.35)}
+.coPal{display:flex;flex-direction:column;gap:8px;padding:8px 0;border-bottom:2px solid var(--line)}
+.coPal b{flex:1;color:#fff}
+.coShot{position:fixed;inset:0;z-index:70;background:#000;cursor:crosshair}
+.coShot img{width:100%;height:100%;object-fit:contain;display:block;pointer-events:none}
+.coLoupe{position:fixed;width:121px;height:121px;image-rendering:pixelated;box-shadow:0 0 0 3px #fff,0 0 0 6px #000;pointer-events:none}
+.coLbl{position:fixed;padding:4px 8px;font:11px var(--title);pointer-events:none;box-shadow:0 0 0 2px #000}
+.coShotHelp{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.75);color:#fff;padding:8px 14px;font:10px var(--title);pointer-events:none}
+`;  // le style de ce plugin (il utilise les variables du thème de NeoBase)
 export default async function (ctx) {
   const view = ctx.view;
   if (!ctx.host) { view.textContent = "Ce plugin doit être approuvé par NeoBase pour s'ouvrir."; return; }
   const host = ctx.host, { el, toast, sfx, ask, newTab, pixIcon, PIX, WX } = host;
   const nbConfirm = host.confirm;  // la boîte de confirmation de NeoBase, à la place de celle de Windows
   const folder = ctx.folder, legacy = ctx.legacy || {};
+  ctx.host.addStyle(CSS);
   view.innerHTML = HTML;
   const $ = id => id === "colorsApp" ? view : (view.querySelector('#' + id) || document.getElementById(id));  // les identifiants de ta vue d'abord, puis ceux de la page (fenêtres, menus)
   const doc = async n => { try { return await folder.read(n); } catch { return null; } };
