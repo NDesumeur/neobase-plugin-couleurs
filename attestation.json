@@ -1,0 +1,9 @@
+{
+  "pluginId": "neobase.couleurs",
+  "repo": "NDesumeur/neobase-plugin-couleurs",
+  "version": "1.0.2",
+  "sha256": "ee7db6c8a8e3a99759410dc5b0d34d846d7c1fb84aa42051ba1666edf9de0392",
+  "approvedAt": "2026-11-01T00:16:26.458Z",
+  "neobase": ">=4.0.0",
+  "signature": "Ng6/hwQvDe7MXBNt/N78ldMEd96xuij7UkcRjhGUA0KM2F4Q1YUVxRoMJuKoVnN3puGSzkUbD3i7/B6Zb18ZDQ=="
+}
