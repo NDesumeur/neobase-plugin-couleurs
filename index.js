@@ -1,6 +1,6 @@
 // Couleurs : ton appli d'origine (HTML et code inchangés), livrée en plugin.
-// Ses données sont dans le dossier du plugin, que NeoBase sauvegarde (synchro cloud et sauvegardes) ; à la première ouverture elle reprend ce que tu avais dans NeoBase.
-// Elle tourne dans le bac à sable de NeoBase, avec ses outils d'interface (ctx.host) et seulement les autorisations de son plugin.json.
+// Ses données sont dans le dossier du plugin, que NeoDex sauvegarde (synchro cloud et sauvegardes) ; à la première ouverture elle reprend ce que tu avais dans NeoDex.
+// Elle tourne dans le bac à sable de NeoDex, avec ses outils d'interface (ctx.host) et seulement les autorisations de son plugin.json.
 const HTML = "";
 /*CSS-MOVED*/ const CSS = `.ofDropM .tbtn{justify-content:flex-start;font:14px var(--text);letter-spacing:0}
 .ofTb{all:unset;cursor:var(--cp,pointer);min-width:30px;height:30px;padding:0 7px;display:grid;place-items:center;color:var(--lilac);font-size:15px;background:var(--btn)}
@@ -40,12 +40,12 @@ const HTML = "";
 .coLoupe{position:fixed;width:121px;height:121px;image-rendering:pixelated;box-shadow:0 0 0 3px #fff,0 0 0 6px #000;pointer-events:none}
 .coLbl{position:fixed;padding:4px 8px;font:11px var(--title);pointer-events:none;box-shadow:0 0 0 2px #000}
 .coShotHelp{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.75);color:#fff;padding:8px 14px;font:10px var(--title);pointer-events:none}
-`;  // le style de ce plugin (il utilise les variables du thème de NeoBase)
+`;  // le style de ce plugin (il utilise les variables du thème de NeoDex)
 export default async function (ctx) {
   const view = ctx.view;
-  if (!ctx.host) { view.textContent = "Ce plugin doit être approuvé par NeoBase pour s'ouvrir."; return; }
+  if (!ctx.host) { view.textContent = "Ce plugin doit être approuvé par NeoDex pour s'ouvrir."; return; }
   const host = ctx.host, { el, toast, sfx, ask, newTab, pixIcon, PIX, WX } = host;
-  const nbConfirm = host.confirm;  // la boîte de confirmation de NeoBase, à la place de celle de Windows
+  const nbConfirm = host.confirm;  // la boîte de confirmation de NeoDex, à la place de celle de Windows
   const folder = ctx.folder, legacy = ctx.legacy || {};
   ctx.host.addStyle(CSS);
   view.innerHTML = HTML;
@@ -143,8 +143,8 @@ function coRender() {
   // the current colour, its formats, the pickers
   const big = el('div', 'coBig'); big.style.background = hex; big.style.color = coLum(rgb) > .4 ? '#000' : '#fff'; big.textContent = hex.toUpperCase();
   const native = Object.assign(el('input', 'coNative'), {type: 'color', value: hex, title: 'Choisir dans le nuancier'}); native.oninput = () => coSet(native.value); native.onchange = () => coSet(native.value, true);
-  const pickS = el('button', 'btn main px', 'PIPETTE SUR L\'ÉCRAN'); pickS.title = 'NeoBase se cache un instant : clique sur n\'importe quelle couleur de ton écran'; pickS.onclick = coPickScreen;
-  const pickE = el('button', 'btn px', 'PIPETTE DANS NEOBASE'); pickE.onclick = () => new EyeDropper().open().then(r => coSet(r.sRGBHex, true)).catch(() => {});
+  const pickS = el('button', 'btn main px', 'PIPETTE SUR L\'ÉCRAN'); pickS.title = 'NeoDex se cache un instant : clique sur n\'importe quelle couleur de ton écran'; pickS.onclick = coPickScreen;
+  const pickE = el('button', 'btn px', 'PIPETTE DANS NEODEX'); pickE.onclick = () => new EyeDropper().open().then(r => coSet(r.sRGBHex, true)).catch(() => {});
   if (!('EyeDropper' in window)) pickE.style.display = 'none';
   const fmts = [['HEX', hex.toUpperCase()], ['RGB', `rgb(${rgb.join(', ')})`], ['HSL', `hsl(${h}, ${s}%, ${l}%)`], ['CMJN', cmyk.map(v => v + ' %').join(' · ')], ['CSS', `--couleur: ${hex};`]].map(([k, v]) => {
     const r = el('div', 'coFmt'), i = el('input', 'f'), cp = el('button', 'btn px', 'COPIER'); i.value = v; i.spellcheck = false;
